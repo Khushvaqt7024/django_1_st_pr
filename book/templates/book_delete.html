@@ -1,0 +1,7 @@
+<h1>Kitobni o‘chirish</h1>
+<p>Siz haqiqatdan ham "{{ book.title }}" kitobini o‘chirmoqchimisiz?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Ha, o‘chirish</button>
+</form>
+<a href="{% url 'book_list' %}">Yo‘q, orqaga</a>

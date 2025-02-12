@@ -1,0 +1,31 @@
+<!--{% load static %}-->
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Asosiy Sahifa{% endblock %}</title>
+    <!--    <link rel="stylesheet" href="{% static 'style.css' %}"> &lt;!&ndash; CSS faylini ulash &ndash;&gt;-->
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/">Bosh sahifa</a></li>
+            <li><a href="/about">Biz haqimizda</a></li>
+            <li><a href="/contact">Aloqa</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    {% block content %}
+        <h1>Xush kelibsiz!</h1>
+        <p>Bu sizning asosiy sahifangiz.</p>
+    {% endblock %}
+</main>
+<footer>
+    <p>&copy; 2025 Sizning Kompaniyangiz. Barcha huquqlar himoyalangan.</p>
+</footer>
+</body>
+</html>
+
