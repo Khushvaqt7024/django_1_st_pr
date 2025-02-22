@@ -38,12 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-
-    'django_extensions',
+    # app name
     'contact',
-    'book',
     'books',
+    'accounts',
 
+    # third party
+    'django_extensions',
 
 ]
 

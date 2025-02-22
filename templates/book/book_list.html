@@ -1,0 +1,23 @@
+{% extends 'base/base.html'%}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kitoblar Kutubxonasi</title>
+</head>
+<body>
+{% block content %}
+    <h1>Kitoblar Ro'yxati</h1>
+    <a href="{% url 'library:book_create' %}">Yangi Kitob Qo'shish</a>
+    <ul>
+        {% for book in books %}
+            <li>
+                {{ book.title }} - {{ book.author }}
+                <a href="{% url 'library:book_update' book.pk %}">Tahrirlash</a>
+                <a href="{% url 'library:book_delete' book.pk %}">O'chirish</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+</body>
+</html>

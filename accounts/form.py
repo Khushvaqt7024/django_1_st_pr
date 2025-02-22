@@ -40,7 +40,6 @@ class ContactForm(forms.Form):
 class ContactModelForm(forms.ModelForm):
     class Meta:
         model = Contact
-        fields = ['name', 'email', 'phone', 'address']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'emailingizni kiriting!'}),

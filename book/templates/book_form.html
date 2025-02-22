@@ -1,7 +1,0 @@
-<h1>Kitobni qoshish/tahrirlash</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Saqlash</button>
-</form>
-<a href="{% url 'book_list' %}">Orqaga</a>

@@ -6,7 +6,7 @@ from .forms import BookForm
 # Kitoblar ro'yxati
 def book_list(request):
     books = Book.objects.all()
-    return render(request, 'books/book_list.html', {'books': books})
+    return render(request, 'book/book_list.html', {'books': books})
 
 # Yangi kitob qo'shish
 def book_create(request):
@@ -17,7 +17,7 @@ def book_create(request):
             return redirect('book_list')
     else:
         form = BookForm()
-    return render(request, 'books/book_form.html', {'form': form})
+    return render(request, 'book/book_form.html', {'form': form})
 
 # Kitobni yangilash
 def book_update(request, pk):
@@ -29,7 +29,7 @@ def book_update(request, pk):
             return redirect('book_list')
     else:
         form = BookForm(instance=book)
-    return render(request, 'books/book_form.html', {'form': form})
+    return render(request, 'book/book_form.html', {'form': form})
 
 # Kitobni o'chirish
 def book_delete(request, pk):
@@ -37,5 +37,5 @@ def book_delete(request, pk):
     if request.method == 'POST':
         book.delete()
         return redirect('book_list')
-    return render(request, 'books/book_confirm_delete.html', {'book': book})
+    return render(request, 'book/book_confirm_delete.html', {'book': book})
 # Create your views here.
