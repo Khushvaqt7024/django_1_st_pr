@@ -1,7 +1,7 @@
-<h1>Kitobni o‘chirish</h1>
-<p>Siz haqiqatdan ham "{{ book.title }}" kitobini o‘chirmoqchimisiz?</p>
+<h1>Kitobni ochirish</h1>
+<p>Siz haqiqatdan ham "{{ book.title }}" kitobini ochirmoqchimisiz?</p>
 <form method="post">
     {% csrf_token %}
-    <button type="submit">Ha, o‘chirish</button>
+    <button type="submit">Ha, ochirish</button>
 </form>
-<a href="{% url 'book_list' %}">Yo‘q, orqaga</a>
+<a href="{% url 'book_list' %}">Yoq, orqaga</a>
