@@ -1,23 +1,91 @@
-{% extends 'base/base.html'%}
+{% extends 'base/base.html' %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Kitoblar Kutubxonasi</title>
-</head>
-<body>
 {% block content %}
-    <h1>Kitoblar Ro'yxati</h1>
-    <a href="{% url 'library:book_create' %}">Yangi Kitob Qo'shish</a>
-    <ul>
-        {% for book in books %}
-            <li>
-                {{ book.title }} - {{ book.author }}
-                <a href="{% url 'library:book_update' book.pk %}">Tahrirlash</a>
-                <a href="{% url 'library:book_delete' book.pk %}">O'chirish</a>
-            </li>
-        {% endfor %}
-    </ul>
+    <h1 class="text-primary mb-4 text-center">📚 Kitoblar Ro'yxati</h1>
+
+    <!-- 🔍 Qidiruv formasi -->
+    <form method="get" action="{% url 'library:book_list' %}" class="d-flex mb-4 justify-content-center">
+        <input type="text" name="q" class="form-control w-50 me-2" placeholder="🔍 Kitob qidiring..." value="{{ query }}">
+        <button class="btn btn-primary" type="submit">Qidirish</button>
+    </form>
+
+    <!-- ➕ Yangi kitob qo'shish tugmasi -->
+    <div class="text-center mb-4">
+        <a href="{% url 'library:book_create' %}" class="btn btn-success">
+            ➕ Yangi Kitob Qo'shish
+        </a>
+    </div>
+
+    <!-- 📖 Kitoblar ro‘yxati -->
+    {% if page_obj and page_obj.object_list %}
+        <ul class="list-group shadow-sm">
+            {% for book in page_obj %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-1 text-dark">{{ book.title }}</h5>
+                        <small class="text-muted">✍️ {{ book.author }}</small>
+                    </div>
+                    <div>
+                        <a href="{% url 'library:book_update' book.pk %}" class="btn btn-sm btn-warning me-2">
+                            ✏️ Tahrirlash
+                        </a>
+                        <!-- ✅ O‘chirish URL to‘g‘rlandi -->
+                        <a href="{% url 'library:book_delete' book.pk %}" class="btn btn-sm btn-danger">
+                            ❌ O'chirish
+                        </a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="alert alert-warning text-center" role="alert">
+            🔎 "{% if query %}{{ query }}{% else %}Kitob{% endif %}" bo‘yicha mos kitob topilmadi.
+        </div>
+    {% endif %}
+
+    <!-- 📄 Pagination -->
+    {% if page_obj.has_other_pages %}
+        <nav aria-label="Sahifalash">
+            <ul class="pagination justify-content-center mt-4">
+                <!-- ⬅️ Oldingi tugmasi -->
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?q={{ query }}&page={{ page_obj.previous_page_number }}">
+                            ⬅️ Oldingi
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">⬅️ Oldingi</span>
+                    </li>
+                {% endif %}
+
+                <!-- 📄 Sahifalar raqami -->
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ num }}</span>
+                        </li>
+                    {% elif num >= page_obj.number|add:'-2' and num <= page_obj.number|add:'2' %}
+                        <li class="page-item">
+                            <a class="page-link" href="?q={{ query }}&page={{ num }}">{{ num }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                <!-- ➡️ Keyingi tugmasi -->
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?q={{ query }}&page={{ page_obj.next_page_number }}">
+                            Keyingi ➡️
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">Keyingi ➡️</span>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
 {% endblock %}
-</body>
-</html>
