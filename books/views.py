@@ -5,10 +5,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 
 
 # Bosh sahifa - Kitoblar ro'yxati (Qidiruv va Pagination bilan)
-@login_required
+@login_required(login_url="")
 def book_list(request):
     query = request.GET.get('q', '')  # 🔍 Qidiruv so'rovi (bo‘sh qiymat agar yo‘q bo‘lsa)
     books = Book.objects.all().order_by('-published_date')
@@ -52,11 +53,10 @@ def book_update(request, pk):
 # Kitobni o'chirish
 @login_required
 def book_delete(request, pk):
+    print('book delete ', pk)
     book = get_object_or_404(Book, pk=pk)
-    if request.method == 'POST':
-        book.delete()
-        return redirect('library:book_list')
-    return render(request, 'book/book_confirm_delete.html', {'book': book})
+    book.delete()
+    return redirect('library:book_list')
 
 
 # Aloqa sahifasi
