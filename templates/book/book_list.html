@@ -3,20 +3,17 @@
 {% block content %}
     <h1 class="text-primary mb-4 text-center">📚 Kitoblar Ro'yxati</h1>
 
-    <!-- 🔍 Qidiruv formasi -->
     <form method="get" action="{% url 'library:book_list' %}" class="d-flex mb-4 justify-content-center">
         <input type="text" name="q" class="form-control w-50 me-2" placeholder="🔍 Kitob qidiring..." value="{{ query }}">
         <button class="btn btn-primary" type="submit">Qidirish</button>
     </form>
 
-    <!-- ➕ Yangi kitob qo'shish tugmasi -->
     <div class="text-center mb-4">
         <a href="{% url 'library:book_create' %}" class="btn btn-success">
             ➕ Yangi Kitob Qo'shish
         </a>
     </div>
 
-    <!-- 📖 Kitoblar ro‘yxati -->
     {% if page_obj and page_obj.object_list %}
         <ul class="list-group shadow-sm">
             {% for book in page_obj %}
@@ -43,11 +40,9 @@
         </div>
     {% endif %}
 
-    <!-- 📄 Pagination -->
     {% if page_obj.has_other_pages %}
         <nav aria-label="Sahifalash">
             <ul class="pagination justify-content-center mt-4">
-                <!-- ⬅️ Oldingi tugmasi -->
                 {% if page_obj.has_previous %}
                     <li class="page-item">
                         <a class="page-link" href="?q={{ query }}&page={{ page_obj.previous_page_number }}">
@@ -60,7 +55,6 @@
                     </li>
                 {% endif %}
 
-                <!-- 📄 Sahifalar raqami -->
                 {% for num in page_obj.paginator.page_range %}
                     {% if page_obj.number == num %}
                         <li class="page-item active">
@@ -73,7 +67,6 @@
                     {% endif %}
                 {% endfor %}
 
-                <!-- ➡️ Keyingi tugmasi -->
                 {% if page_obj.has_next %}
                     <li class="page-item">
                         <a class="page-link" href="?q={{ query }}&page={{ page_obj.next_page_number }}">

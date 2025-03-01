@@ -3,6 +3,21 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
+def login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        return render(request, 'accounts/login.html', {'username': username, 'password': password})
+    else:
+        return render(request, 'accounts/login.html')
+def signup(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        email = request.POST.get('email')
+        return
+
+
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -28,4 +43,3 @@ def edit(request):
         form = UserChangeForm(instance=request.user)
     return render(request, 'accounts/edit.html', {'form': form})
 
-# Create your views here.

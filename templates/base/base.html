@@ -17,10 +17,14 @@
             font-family: 'Poppins', sans-serif;
             background-color: #f5f7fa;
             color: #343a40;
+            scroll-behavior: smooth;
         }
         header {
-            background-color: #0d6efd;
+            background: linear-gradient(90deg, #0d6efd 0%, #6610f2 100%);
             padding: 20px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
         }
         nav ul {
             list-style: none;
@@ -34,29 +38,74 @@
             color: white;
             text-decoration: none;
             font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
             transition: color 0.3s;
+        }
+        nav a::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: #ffc107;
+            left: 0;
+            bottom: -5px;
+            transition: width 0.3s;
+        }
+        nav a:hover::after {
+            width: 100%;
         }
         nav a:hover {
             color: #ffc107;
         }
         main {
             text-align: center;
-            padding: 60px 20px;
+            padding: 80px 20px;
+            animation: fadeIn 1.2s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         main h1 {
             font-size: 3rem;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 20px;
             color: #0d6efd;
         }
         main p {
             font-size: 1.2rem;
             color: #6c757d;
+            margin-bottom: 40px;
+        }
+        .btn-custom {
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 30px;
+            transition: all 0.3s ease-in-out;
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+        }
+        .btn-custom:hover {
+            background-color: #6610f2;
+            box-shadow: 0 10px 20px rgba(102, 16, 242, 0.3);
+            transform: translateY(-3px);
+        }
+        .card-custom {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        .card-custom:hover {
+            transform: translateY(-10px);
         }
         footer {
             background-color: #f8f9fa;
             text-align: center;
-            padding: 15px 0;
+            padding: 20px 0;
             margin-top: 50px;
             border-top: 1px solid #dee2e6;
         }
@@ -83,7 +132,6 @@
             <li><a href="{% url 'library:about' %}">ℹ️ Biz haqimizda</a></li>
             <li><a href="{% url 'library:contact' %}">📞 Aloqa</a></li>
 
-            <!-- 🔐 Login qilingan foydalanuvchi uchun qo‘shimcha menyu -->
             {% if user.is_authenticated %}
 {#                <li><strong>👤 {{ user.username }}</strong></li>#}
 {#                <li><a href="{% url 'logout' %}">🚪 Tizimdan chiqish</a></li>#}
@@ -99,6 +147,30 @@
     {% block content %}
         <h1>👋 Xush kelibsiz!</h1>
         <p>📖 Saytdagi eng so‘nggi ma’lumotlardan xabardor bo‘ling va o‘z kutubxonangizni yaratishdan zavqlaning.</p>
+        <a href="{% url 'library:book_list' %}" class="btn btn-custom">📚 Kutubxonani ko‘rish</a>
+
+        <div class="container mt-5">
+            <div class="row justify-content-center g-4">
+                <div class="col-md-4">
+                    <div class="card card-custom p-4 text-center">
+                        <h5 class="fw-bold">🌟 Eng mashhur kitoblar</h5>
+                        <p>Ommabop kitoblar ro‘yxatini ko‘rib chiqing.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-custom p-4 text-center">
+                        <h5 class="fw-bold">🆕 Yangi qo‘shimchalar</h5>
+                        <p>So‘nggi qo‘shilgan kitoblarni o‘rganing.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-custom p-4 text-center">
+                        <h5 class="fw-bold">📅 Tadbirlar</h5>
+                        <p>Kutubxonamizda o‘tkaziladigan tadbirlar haqida bilib oling.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     {% endblock %}
 </main>
 
